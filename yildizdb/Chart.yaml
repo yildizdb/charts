@@ -1,0 +1,12 @@
+name: yildizdb
+version: 1.0.0
+appVersion: 9.0.5
+description: high performance event relation storage on top of BigTable, MySQL or Postgres
+keywords:
+- redis
+- keyvalue
+- database
+home: https://github.com/yildizdb/yildiz
+sources:
+- https://github.com/yildizdb/yildiz
+engine: gotpl

@@ -1,0 +1,72 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "yildizdb.fullname" . }}
+  labels:
+    app: {{ include "yildizdb.name" . }}
+    chart: {{ include "yildizdb.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "yildizdb.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "yildizdb.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /admin/healthcheck
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /admin/healthcheck
+              port: http
+          volumeMounts:
+          {{- if .Values.configmap }}
+          - name: config
+            mountPath: /opt/config/config.json
+            subPath: config.conf
+          {{- end }}
+          {{- range .Values.customVolumes }}
+          - name: {{ .secretName }}
+            mountPath: {{ .mountPath }}
+          {{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+      {{- if .Values.configmap }}
+      - name: config
+        configMap:
+          name: {{ include "yildizdb.fullname" . }}
+      {{- end }}
+      {{- range .Values.customVolumes }}
+      - name: {{ .secretName }}
+        secret:
+          secretName: {{ .secretName }}
+      {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

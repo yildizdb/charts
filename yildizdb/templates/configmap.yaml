@@ -1,0 +1,15 @@
+
+{{- if .Values.configmap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ include "yildizdb.name" . }}
+    chart: {{ include "yildizdb.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ include "yildizdb.fullname" . }}
+data:
+  config.json: |-
+{{ .Values.configmap | indent 4 }}
+{{- end }}
