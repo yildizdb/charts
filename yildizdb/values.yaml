@@ -41,7 +41,7 @@ customVolumes: []
 ## https://github.com/yildizdb/yildiz/blob/f5782cca5286fc995f42ce32c1dd599aa81441a1/lib/interfaces/ServiceConfig.ts#L64-L78
 configmap: |-
   {
-    "accessLog": true,
+    "accessLog": false,
     "enableRaw": true,
     "noBanner": false,
     "ttl": {
@@ -49,7 +49,7 @@ configmap: |-
       "lifeTimeInSec": 86400,
       "jobIntervalInSec": 180
     },
-    "database": { 
+    "database": {
       "dialect": "bigtable",
       "projectId": "test-project",
       "instanceName": "my-sql-instance-1",

@@ -3,5 +3,5 @@
 ```sh
 helm repo add yildizdb https://raw.githubusercontent.com/yildizdb/charts/master/
 helm repo update
-helm install --set=replicaCount=2 yildizdb/yildizdb
+helm install --name=yildizdb --set=replicaCount=2 yildizdb/yildizdb
 ```
