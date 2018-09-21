@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  yildizdb:
+  - appVersion: 9.0.5
+    created: 2018-09-21T16:23:21.301127807+02:00
+    description: high performance event relation storage on top of BigTable, MySQL
+      or Postgres
+    digest: 7ed1645182b7de3034a51f7e0d936afff3a31837ac825994c0ac019c343dfa18
+    engine: gotpl
+    home: https://github.com/yildizdb/yildiz
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    name: yildizdb
+    sources:
+    - https://github.com/yildizdb/yildiz
+    urls:
+    - yildizdb/yildizdb-1.0.0.tgz
+    version: 1.0.0
+generated: 2018-09-21T16:23:21.299609988+02:00
